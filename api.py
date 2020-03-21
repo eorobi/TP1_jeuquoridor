@@ -3,8 +3,10 @@ import requests
 
 
 def lister_parties(idul):
-    #fonction 3 : permet d'obtenir la liste des dernières parties démarrées ou terminées par le joueur de l'idul. 
-    #Accepte en entrée l'idul du joueur dont on souhaite avoir l'historique des partie. 
+    #fonction 3 : permet d'obtenir la liste des dernières parties démarrées
+    #ou terminées par le joueur de l'idul. 
+    #Accepte en entrée l'idul du joueur dont on souhaite avoir
+    #l'historique des partie. 
     #Aucun return mais affiche à la console un json. 
     #paramètre de l'idul: chaîne de caractères associée au dossier du joueur
 
@@ -14,7 +16,7 @@ def lister_parties(idul):
         if resultat.status_code == 200:
             resultat = resultat.text
             json_var = json.loads(resultat)
-            jason_str = json.dumps(json_var, indent=2)
+            json_str = json.dumps(json_var, indent=2)
             print(json_var)
         else:
             print("Le GET sur '{}' a produit le code d'erreur {}.".format(
@@ -24,12 +26,15 @@ def lister_parties(idul):
         print(error)
 
 def initialiser_partie(idul):
-    #fonction 4: démarre une partie contre le robot du serveur. Elle accepte en entrée l'idul du joueur
-    #qui souhaite débuter la partie. Elle retourne un tuple qui contient l'identifiant de la partie et
-    #l'état initale du jeu. En cas de message d'erreur: elle soulève une exception de type RuntimeError.
+    #fonction 4: démarre une partie contre le robot du serveur. 
+    #Elle accepte en entrée l'idul du joueur
+    #qui souhaite débuter la partie. Elle retourne un tuple qui 
+    #contient l'identifiant de la partie et
+    #l'état initale du jeu. En cas de message d'erreur: 
+    #elle soulève une exception de type RuntimeError.
     url_initiale = 'https://python.gel.ulaval.ca/quoridor/api/initialiser/'
     try:
-        resultat = requests.post(url_initiale, data = {'idul': idul})
+        resultat = requests.post(url_initiale, data ={'idul': idul})
         if resultat.status_code == 200:
             json_res = resultat.json()
             return json_res['id'], json_res['état']
