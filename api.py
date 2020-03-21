@@ -4,10 +4,10 @@ import requests
 
 def lister_parties(idul):
     #fonction 3 : permet d'obtenir la liste des dernières parties démarrées
-    #ou terminées par le joueur de l'idul. 
+    #ou terminées par le joueur de l'idul.
     #Accepte en entrée l'idul du joueur dont on souhaite avoir
-    #l'historique des partie. 
-    #Aucun return mais affiche à la console un json. 
+    #l'historique des partie.
+    #Aucun return mais affiche à la console un json.
     #paramètre de l'idul: chaîne de caractères associée au dossier du joueur
 
     url_lister = 'https://python.gel.ulaval.ca/quoridor/api'
@@ -15,8 +15,8 @@ def lister_parties(idul):
         resultat = requests.get(url_lister, params={'idul': idul})
         if resultat.status_code == 200:
             resultat = resultat.text
-            json_var = json.loads(resultat)
-            json_str = json.dumps(json_var, indent=2)
+            json_x = json.loads(resultat)
+            json_y = json.dumps(json_var, indent=2)
             print(json_var)
         else:
             print("Le GET sur '{}' a produit le code d'erreur {}.".format(
@@ -26,15 +26,15 @@ def lister_parties(idul):
         print(error)
 
 def initialiser_partie(idul):
-    #fonction 4: démarre une partie contre le robot du serveur. 
+    #fonction 4: démarre une partie contre le robot du serveur.
     #Elle accepte en entrée l'idul du joueur
-    #qui souhaite débuter la partie. Elle retourne un tuple qui 
+    #qui souhaite débuter la partie. Elle retourne un tuple qui
     #contient l'identifiant de la partie et
-    #l'état initale du jeu. En cas de message d'erreur: 
+    #l'état initale du jeu. En cas de message d'erreur:
     #elle soulève une exception de type RuntimeError.
     url_initiale = 'https://python.gel.ulaval.ca/quoridor/api/initialiser/'
     try:
-        resultat = requests.post(url_initiale, data ={'idul': idul})
+        resultat = requests.post(url_initiale, data={'idul': idul})
         if resultat.status_code == 200:
             json_res = resultat.json()
             return json_res['id'], json_res['état']
@@ -49,14 +49,14 @@ def jouer_coup(id_partie, type_coup, position):
     #fonction 5: elle permet au joueur de jouer un pion contre le robot du serveur
     #la fonction reçoit en argument 3 choses:
     # 1- id_partie : il s'agit de l'identifant de la partie qui est défini avec la fonction
-    #précédente qui permet de débuter une nouvelle partie. 
-    # 2- type_coup: il s'agir du type de coup que veut faire le participant: 
+    #précédente qui permet de débuter une nouvelle partie.
+    # 2- type_coup: il s'agir du type de coup que veut faire le participant:
     # 'D' pour déplacer le jeton; 'MH' pour déplacer les murs horizontales
-    # 'MV' pour déplacer les murs verticales et finalement la position (x, y) du déplacement. 
+    # 'MV' pour déplacer les murs verticales et finalement la position (x, y) du déplacement.
     #Cette fonction retourne le damier de l'état actuel du jeu. Advenant une erreur de commande
-    #la fonction retourne également une exception du type 'RuntimeError'. 
+    #la fonction retourne également une exception du type 'RuntimeError'.
     #Lorsqu'un joueur gagne la partie, celle-ci prend fin et la fonction soulève une exception
-    # du type 'StopIteration' avec le nom de la personne gagnante. 
+    # du type 'StopIteration' avec le nom de la personne gagnante.
     url_coup = 'https://python.gel.ulaval.ca/quoridor/api/jouer'
     try:
         resultat = requests.post(url_coup, data={
