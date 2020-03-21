@@ -7,7 +7,7 @@ def analyser_commande():
     #associé à la clé idul.
     parser = argparse.ArgumentParser(description="Jeu quoridor - Phase 1")
     parser.add_argument('-l', '--lister', action='store_true', 
-    help='Lister les identifiants de vos 20 dernières parties.')
+                        help='Lister les identifiants de vos 20 dernières parties.')
     parser.add_argument('idul', metavar='idul', type=str, help='IDUL du joueur')
     #parser.add_argument('bar', type=str, help='Argument positionnel de la sous-commande acheter')
     return parser.parse_args()
@@ -23,14 +23,14 @@ def line_namer(i):
 def afficher_damier_ascii(grille):
     #fonction 2: accepte en argument le dictonnaire d'un état du jeu et affiche
     #le damier correspondant en art ascii.
-    grille ={ "joueurs": [{"nom": "idul", "murs": 7, "pos":[5, 5]},
-                           {"nom": "automate", "murs": 3, "pos": [8, 6]}
-                           ],
-               "murs": {
-        "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
-        "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]
-            }
-        }
+    grille = {"joueurs": [{"nom": "idul", "murs": 7, "pos":[5, 5]},
+                          {"nom": "automate", "murs": 3, "pos": [8, 6]}
+                         ],
+              "murs": {
+                   "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
+                   "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]
+                      }
+             }
 
     positions_grille = 9
     espace_horizontale = ((positions_grille * 4) - 1)
@@ -65,7 +65,7 @@ def afficher_damier_ascii(grille):
         #obtention de la position en [x,y] du joueur
         position = joueur["pos"]
         #vérification que la position est dans les contraintes
-        if ((0 > position[0] > positions_grille) or 
+        if ((0 > position[0] > positions_grille) or
                 (0 > position[1] > positions_grille)):
             raise IndexError("Adresse du joueur invalide!")
     #calcul du décallage relatif au tableau
